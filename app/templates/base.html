@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="de" class="h-full bg-slate-950 text-slate-100">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}FlexDB{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+    <script src="https://unpkg.com/htmx.org@1.9.12" defer></script>
+    <script>
+      // Provide CSRF token for HTMX requests.
+      document.addEventListener("htmx:configRequest", function (evt) {
+        const m = document.cookie.match(/(?:^|; )csrf_token=([^;]+)/);
+        if (m) evt.detail.headers["X-CSRF-Token"] = decodeURIComponent(m[1]);
+      });
+    </script>
+  </head>
+  <body class="h-full">
+    {% block body %}{% endblock %}
+  </body>
+</html>
+

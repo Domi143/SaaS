@@ -1,0 +1,45 @@
+{% extends "layout_app.html" %}
+
+{% block title %}Workspaces – FlexDB{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-xl font-semibold">Workspaces</h1>
+</div>
+
+<div class="grid md:grid-cols-2 gap-4">
+  <div class="rounded-lg border border-slate-800 bg-slate-900/70 p-4">
+    <h2 class="text-sm font-medium mb-3">Neuen Workspace anlegen</h2>
+    <form method="post" action="/app/workspaces" class="flex gap-2">
+      <input type="hidden" name="csrf_token" value="{{ request.state.csrf_token or request.cookies.get('csrf_token', '') }}">
+      <input name="name" required placeholder="z.B. Kunden 2026"
+             class="flex-1 rounded-md bg-slate-950 border border-slate-700 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+      <button class="px-3 py-2 rounded-md bg-indigo-500 text-sm hover:bg-indigo-400" type="submit">
+        Erstellen
+      </button>
+    </form>
+  </div>
+
+  <div class="rounded-lg border border-slate-800 bg-slate-900/70 p-4">
+    <h2 class="text-sm font-medium mb-3">Deine Workspaces</h2>
+    {% if workspaces|length == 0 %}
+      <p class="text-sm text-slate-400">Noch keine Workspaces. Erstelle oben deinen ersten.</p>
+    {% else %}
+      <ul class="space-y-2 text-sm">
+        {% for ws in workspaces %}
+        <li class="flex items-center justify-between border border-slate-800 rounded-md px-3 py-2 bg-slate-950/40">
+          <div class="truncate">
+            <div class="font-medium">{{ ws.name }}</div>
+            <div class="text-xs text-slate-500">ID: {{ ws.id }} · Slug: {{ ws.slug }}</div>
+          </div>
+          <a href="/app/workspaces/{{ ws.id }}" class="text-indigo-400 hover:text-indigo-300 text-xs">
+            Öffnen
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+

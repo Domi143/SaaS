@@ -1,0 +1,54 @@
+{% extends "layout_public.html" %}
+
+{% block title %}FlexDB – Flexible Workspaces{% endblock %}
+
+{% block content %}
+<section class="py-16 px-4">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+    <div class="space-y-4">
+      <h1 class="text-3xl md:text-4xl font-semibold">
+        Deine flexiblen Datenbanken<br class="hidden md:block" />
+        ohne Excel‑Chaos.
+      </h1>
+      <p class="text-slate-300 text-sm md:text-base">
+        FlexDB ist dein persönliches Daten‑Cockpit: Workspaces, flexible Felder,
+        Filter, Suchen, Sortieren und Export – alles in einer klaren Oberfläche.
+      </p>
+      <div class="flex flex-wrap gap-3 pt-2">
+        <a href="/register"
+           class="inline-flex items-center px-4 py-2 rounded-md bg-indigo-500 text-white text-sm hover:bg-indigo-400">
+          Kostenlos starten
+        </a>
+        <a href="/login" class="text-sm text-slate-300 hover:text-white">
+          Bereits registriert? Login
+        </a>
+      </div>
+      <p class="text-xs text-slate-500">
+        Deine Marketing‑Landingpage (z.B. bei carrd.co) verlinkt einfach hierher:
+        <code class="bg-slate-900 px-1 rounded">/login</code> oder <code class="bg-slate-900 px-1 rounded">/register</code>.
+      </p>
+    </div>
+    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 text-sm">
+      <h2 class="font-medium mb-3">Pläne &amp; Speicher</h2>
+      <div class="grid gap-3 md:grid-cols-3">
+        {% for plan in plans %}
+        <div class="rounded-lg border border-slate-800/80 bg-slate-900/60 p-3 flex flex-col gap-1">
+          <div class="text-xs uppercase tracking-wide text-slate-400">
+            {{ plan.name|capitalize }}
+          </div>
+          <div class="text-xs text-slate-400">
+            Workspaces: {{ plan.max_workspaces }}<br />
+            Records: {{ "{:,}".format(plan.max_records) }}<br />
+            Speicher: {{ (plan.storage_limit_bytes / (1024**2))|round(0) }} MB
+          </div>
+          <div class="mt-2 text-xs text-slate-500">
+            Ideal für {{ "Start" if plan.name == "free" else "Teams" if plan.name == "plus" else "Power‑User" }}.
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,66 @@
+{% extends "layout_app.html" %}
+
+{% block title %}Billing – FlexDB{% endblock %}
+
+{% block content %}
+<div class="flex items-start justify-between gap-4 mb-4">
+  <div>
+    <h1 class="text-xl font-semibold">Billing</h1>
+    <div class="text-xs text-slate-500">Planverwaltung &amp; Subscription‑Status</div>
+  </div>
+</div>
+
+<div class="grid lg:grid-cols-3 gap-4">
+  <div class="lg:col-span-2 rounded-lg border border-slate-800 bg-slate-900/70 p-4">
+    <h2 class="text-sm font-medium mb-2">Aktueller Status</h2>
+    <div class="text-sm text-slate-300 space-y-1">
+      <div><span class="text-slate-400">Plan:</span> <span class="font-medium">{{ profile.plan_name|capitalize }}</span></div>
+      <div><span class="text-slate-400">Status:</span> <span class="font-medium">{{ profile.subscription_status }}</span></div>
+      <div><span class="text-slate-400">Speicherlimit:</span> {{ (limits.storage_limit_bytes / (1024**2))|round(0) }} MB</div>
+      <div><span class="text-slate-400">Belegt:</span> {{ (profile.used_storage_bytes / (1024**2))|round(0) }} MB</div>
+      <div class="text-xs text-slate-500 pt-2">
+        Paddle‑IDs werden nach Webhook‑Ereignissen gespeichert:
+        <code class="bg-slate-950 px-1 rounded">customer</code> / <code class="bg-slate-950 px-1 rounded">subscription</code>.
+      </div>
+    </div>
+  </div>
+
+  <div class="rounded-lg border border-slate-800 bg-slate-900/70 p-4 space-y-3">
+    <h2 class="text-sm font-medium">Upgrade</h2>
+    <p class="text-xs text-slate-400">
+      In MVP: Checkout‑Integration ist vorbereitet. Trage deine Paddle‑Preis‑IDs und Webhook‑Secrets in `.env` ein.
+    </p>
+
+    <div class="space-y-2">
+      <button class="w-full px-3 py-2 rounded-md bg-slate-100 text-slate-900 text-sm hover:bg-white"
+              onclick="openCheckout('{{ price_plus }}')"
+              {% if not price_plus %}disabled{% endif %}>
+        Upgrade auf Plus
+      </button>
+      <button class="w-full px-3 py-2 rounded-md bg-indigo-500 text-white text-sm hover:bg-indigo-400"
+              onclick="openCheckout('{{ price_pro }}')"
+              {% if not price_pro %}disabled{% endif %}>
+        Upgrade auf Pro
+      </button>
+    </div>
+
+    <div class="text-xs text-slate-500">
+      Webhook‑Endpoint:
+      <code class="bg-slate-950 px-1 rounded">/billing/webhook</code>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Paddle checkout initialization placeholder.
+  // You must include Paddle's JS SDK and configure it with your Vendor/Client info.
+  function openCheckout(priceId) {
+    if (!priceId) {
+      alert("Paddle price id ist nicht konfiguriert (siehe .env).");
+      return;
+    }
+    alert("Checkout vorbereiteter Hook. Preis-ID: " + priceId + "\\n\\nAls nächstes: Paddle JS SDK einbinden und Checkout öffnen.");
+  }
+</script>
+{% endblock %}
+

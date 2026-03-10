@@ -1,0 +1,28 @@
+{% extends "layout_app.html" %}
+
+{% block title %}Dashboard – FlexDB{% endblock %}
+
+{% block content %}
+<h1 class="text-xl font-semibold mb-4">Willkommen, {{ user.email }}</h1>
+<p class="text-sm text-slate-300 mb-4">
+  Hier siehst du eine Übersicht deiner Workspaces und deines aktuellen Plans.
+</p>
+<div class="grid md:grid-cols-2 gap-4">
+  <div class="rounded-lg border border-slate-800 bg-slate-900/70 p-4 text-sm">
+    <h2 class="font-medium mb-2">Nächste Schritte</h2>
+    <ul class="list-disc list-inside text-slate-300 space-y-1">
+      <li>Erstelle deinen ersten Workspace.</li>
+      <li>Definiere Felder (z.B. Name, Status, Datum).</li>
+      <li>Lege Records an und filtere/sortiere sie.</li>
+    </ul>
+  </div>
+  <div class="rounded-lg border border-slate-800 bg-slate-900/70 p-4 text-sm">
+    <h2 class="font-medium mb-2">Plan &amp; Limits</h2>
+    <p class="text-slate-300 text-xs">
+      Die Detailansicht zu deinem aktuellen Plan und den Limits findest du im Bereich
+      <a href="/app/billing" class="text-indigo-400 hover:text-indigo-300">Billing</a>.
+    </p>
+  </div>
+</div>
+{% endblock %}
+

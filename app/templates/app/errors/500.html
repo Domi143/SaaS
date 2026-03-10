@@ -1,0 +1,18 @@
+{% extends "layout_public.html" %}
+
+{% block title %}500 – FlexDB{% endblock %}
+
+{% block content %}
+<section class="py-16 px-4">
+  <div class="max-w-xl mx-auto bg-slate-900/70 border border-slate-800 rounded-xl p-6">
+    <h1 class="text-xl font-semibold mb-2">Serverfehler</h1>
+    <p class="text-sm text-slate-300">
+      Es ist ein interner Fehler aufgetreten (500). Bitte versuche es später erneut.
+    </p>
+    <div class="mt-4">
+      <a href="/app/dashboard" class="px-3 py-2 rounded-md bg-indigo-500 text-sm hover:bg-indigo-400">Zum Dashboard</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
